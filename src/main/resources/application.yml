@@ -1,3 +1,10 @@
 spring:
   application:
     name: fashion-coordinator
+
+springdoc:
+  api-docs:
+    path: /docs
+  swagger-ui:
+    path: /swagger-ui.html
+  default-produces-media-type: application/json
