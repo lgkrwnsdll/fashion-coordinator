@@ -29,6 +29,7 @@ public class ProductService {
         List<LowestPriceCombinationResponseDto.ProductResponseDto> productList = new ArrayList<>();
         for (ProductCategory category : ProductCategory.values()) {
             Optional<Entry<String, Integer>> minEntry = productEntityList.stream()
+                .filter(p -> category.getPrice(p) != null)
                 .collect(Collectors.toMap(ProductEntity::getBrand, category::getPrice))
                 .entrySet()
                 .stream()

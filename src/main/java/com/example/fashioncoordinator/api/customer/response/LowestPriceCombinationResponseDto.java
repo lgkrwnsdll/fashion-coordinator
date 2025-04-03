@@ -6,14 +6,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.util.List;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Getter
 @Builder
+@EqualsAndHashCode
 public class LowestPriceCombinationResponseDto {
 
     @Getter
     @Builder
+    @EqualsAndHashCode
     public static class ProductResponseDto {
 
         @JsonProperty("카테고리")

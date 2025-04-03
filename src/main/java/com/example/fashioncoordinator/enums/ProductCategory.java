@@ -23,7 +23,7 @@ public enum ProductCategory {
     @JsonValue
     private final String koreanName;
 
-    public int getPrice(ProductEntity product) {
+    public Integer getPrice(ProductEntity product) {
         return switch (this) {
             case TOPS -> product.getTops();
             case OUTERWEAR -> product.getOuterwear();
