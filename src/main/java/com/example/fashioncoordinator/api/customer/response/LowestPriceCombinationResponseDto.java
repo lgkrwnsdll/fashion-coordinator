@@ -1,4 +1,4 @@
-package com.example.fashioncoordinator.customer.response;
+package com.example.fashioncoordinator.api.customer.response;
 
 import com.example.fashioncoordinator.enums.ProductCategory;
 import com.example.fashioncoordinator.serializer.NumberWithCommaSerializer;

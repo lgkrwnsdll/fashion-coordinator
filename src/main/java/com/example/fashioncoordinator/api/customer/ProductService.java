@@ -1,6 +1,6 @@
-package com.example.fashioncoordinator.customer;
+package com.example.fashioncoordinator.api.customer;
 
-import com.example.fashioncoordinator.customer.response.LowestPriceCombinationResponseDto;
+import com.example.fashioncoordinator.api.customer.response.LowestPriceCombinationResponseDto;
 import com.example.fashioncoordinator.db.ProductEntity;
 import com.example.fashioncoordinator.db.ProductJpaRepository;
 import com.example.fashioncoordinator.enums.ProductCategory;

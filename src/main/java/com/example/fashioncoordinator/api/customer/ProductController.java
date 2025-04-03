@@ -1,6 +1,6 @@
-package com.example.fashioncoordinator.customer;
+package com.example.fashioncoordinator.api.customer;
 
-import com.example.fashioncoordinator.customer.response.LowestPriceCombinationResponseDto;
+import com.example.fashioncoordinator.api.customer.response.LowestPriceCombinationResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
