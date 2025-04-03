@@ -2,6 +2,27 @@ spring:
   application:
     name: fashion-coordinator
 
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:coordinator
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    defer-datasource-initialization: true
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: false
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
 springdoc:
   api-docs:
     path: /docs
