@@ -5,6 +5,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.example.fashioncoordinator.api.customer.response.LowestPriceBrandProductResponseDto;
+import com.example.fashioncoordinator.api.customer.response.LowestPriceBrandProductResponseWrapper;
 import com.example.fashioncoordinator.api.customer.response.LowestPriceCombinationResponseDto;
 import com.example.fashioncoordinator.enums.ProductCategory;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -80,6 +82,65 @@ public class ProductIntegrationTest {
         // when
         ResultActions perform = mockMvc.perform(
             get("/product/lowest-price")
+        );
+
+        // then
+        perform
+            .andExpect(status().isOk())
+            .andExpect(content().json(objectMapper.writeValueAsString(expected)))
+            .andDo(print());
+
+    }
+
+    @Test
+    @DisplayName("최저가 단일 브랜드 조회")
+    public void testGetLowestPriceBrandProducts() throws Exception {
+        // given
+        LowestPriceBrandProductResponseDto responseDto = LowestPriceBrandProductResponseDto.builder()
+            .brand("D")
+            .productList(List.of(
+                LowestPriceBrandProductResponseDto.ProductResponseDto.builder()
+                    .category(ProductCategory.TOPS)
+                    .price(10100)
+                    .build(),
+                LowestPriceBrandProductResponseDto.ProductResponseDto.builder()
+                    .category(ProductCategory.OUTERWEAR)
+                    .price(5100)
+                    .build(),
+                LowestPriceBrandProductResponseDto.ProductResponseDto.builder()
+                    .category(ProductCategory.PANTS)
+                    .price(3000)
+                    .build(),
+                LowestPriceBrandProductResponseDto.ProductResponseDto.builder()
+                    .category(ProductCategory.SNEAKERS)
+                    .price(9500)
+                    .build(),
+                LowestPriceBrandProductResponseDto.ProductResponseDto.builder()
+                    .category(ProductCategory.BAG)
+                    .price(2500)
+                    .build(),
+                LowestPriceBrandProductResponseDto.ProductResponseDto.builder()
+                    .category(ProductCategory.HAT)
+                    .price(1500)
+                    .build(),
+                LowestPriceBrandProductResponseDto.ProductResponseDto.builder()
+                    .category(ProductCategory.SOCKS)
+                    .price(2400)
+                    .build(),
+                LowestPriceBrandProductResponseDto.ProductResponseDto.builder()
+                    .category(ProductCategory.ACCESSORIES)
+                    .price(2000)
+                    .build()
+            ))
+            .totalPrice(36100)
+            .build();
+
+        LowestPriceBrandProductResponseWrapper expected = LowestPriceBrandProductResponseWrapper.from(
+            responseDto);
+
+        // when
+        ResultActions perform = mockMvc.perform(
+            get("/product/lowest-price/brand")
         );
 
         // then

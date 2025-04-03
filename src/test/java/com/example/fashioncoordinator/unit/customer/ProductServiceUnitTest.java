@@ -9,7 +9,6 @@ import com.example.fashioncoordinator.db.ProductEntity;
 import com.example.fashioncoordinator.db.ProductJpaRepository;
 import com.example.fashioncoordinator.enums.ProductCategory;
 import com.example.fashioncoordinator.exception.CustomException;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -35,7 +34,7 @@ public class ProductServiceUnitTest {
 
         @Test
         @DisplayName("추출 성공")
-        public void testWithEnoughProduct() throws JsonProcessingException {
+        public void testWithEnoughProduct() {
             // given
             LowestPriceCombinationResponseDto expected = LowestPriceCombinationResponseDto.builder()
                 .productList(List.of(
