@@ -4,6 +4,8 @@ import com.example.fashioncoordinator.customer.response.LowestPriceCombinationRe
 import com.example.fashioncoordinator.db.ProductEntity;
 import com.example.fashioncoordinator.db.ProductJpaRepository;
 import com.example.fashioncoordinator.enums.ProductCategory;
+import com.example.fashioncoordinator.exception.CustomException;
+import com.example.fashioncoordinator.exception.ProductErrorCode;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -35,7 +37,7 @@ public class ProductService {
                         Comparator.reverseOrder()));  // 가격이 같으면 브랜드명 내림차순
 
             if (minEntry.isEmpty()) {
-                throw new IllegalArgumentException("상품 데이터 부족");  // TODO 공통 예외 처리
+                throw new CustomException(ProductErrorCode.DATA_MISSING);
             }
 
             Entry<String, Integer> entry = minEntry.get();
