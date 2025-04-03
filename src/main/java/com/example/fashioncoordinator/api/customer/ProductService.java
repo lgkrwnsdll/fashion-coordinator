@@ -1,8 +1,11 @@
 package com.example.fashioncoordinator.api.customer;
 
+import com.example.fashioncoordinator.api.customer.response.HighestLowestPriceBrandResponseDto;
+import com.example.fashioncoordinator.api.customer.response.HighestLowestPriceBrandResponseDto.ProductResponseDto;
 import com.example.fashioncoordinator.api.customer.response.LowestPriceBrandProductResponseDto;
 import com.example.fashioncoordinator.api.customer.response.LowestPriceCombinationResponseDto;
 import com.example.fashioncoordinator.db.ProductEntity;
+import com.example.fashioncoordinator.db.ProductJdbcRepository;
 import com.example.fashioncoordinator.db.ProductJpaRepository;
 import com.example.fashioncoordinator.enums.ProductCategory;
 import com.example.fashioncoordinator.exception.CustomException;
@@ -15,6 +18,7 @@ import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,6 +26,7 @@ import org.springframework.stereotype.Service;
 public class ProductService {
 
     private final ProductJpaRepository productJpaRepository;
+    private final ProductJdbcRepository productJdbcRepository;
 
     public LowestPriceCombinationResponseDto getLowestPriceCombination() {
         List<ProductEntity> productEntityList = productJpaRepository.findAll();
@@ -65,5 +70,23 @@ public class ProductService {
             .orElseThrow(() -> new CustomException(ProductErrorCode.DATA_MISSING));
 
         return LowestPriceBrandProductResponseDto.from(productEntity);
+    }
+
+    public HighestLowestPriceBrandResponseDto getHighestAndLowestPriceProducts(
+        ProductCategory category) {
+        try {
+            ProductResponseDto minPriceProduct = productJdbcRepository.findProductByCategory(
+                category, true);
+            ProductResponseDto maxPriceProduct = productJdbcRepository.findProductByCategory(
+                category, false);
+
+            return HighestLowestPriceBrandResponseDto.builder()
+                .category(category)
+                .lowestPriceProductList(List.of(minPriceProduct))
+                .highestPriceProductList(List.of(maxPriceProduct))
+                .build();
+        } catch (EmptyResultDataAccessException e) {
+            throw new CustomException(ProductErrorCode.DATA_MISSING);
+        }
     }
 }

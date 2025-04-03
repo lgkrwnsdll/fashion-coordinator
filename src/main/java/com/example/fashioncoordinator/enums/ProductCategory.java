@@ -2,6 +2,7 @@ package com.example.fashioncoordinator.enums;
 
 import com.example.fashioncoordinator.db.ProductEntity;
 import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.Arrays;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -18,7 +19,6 @@ public enum ProductCategory {
     SOCKS("socks", "양말"),
     ACCESSORIES("accessories", "액세서리");
 
-    // TODO 불필요한 경우 필드 삭제
     private final String dbColumn;
     @JsonValue
     private final String koreanName;
@@ -34,5 +34,12 @@ public enum ProductCategory {
             case SOCKS -> product.getSocks();
             case ACCESSORIES -> product.getAccessories();
         };
+    }
+
+    public static ProductCategory ofKoreanName(String name) {
+        return Arrays.stream(ProductCategory.values())
+            .filter(category -> category.getKoreanName().equals(name))
+            .findFirst()
+            .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 카테고리: " + name));
     }
 }

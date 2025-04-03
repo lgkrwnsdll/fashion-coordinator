@@ -17,6 +17,7 @@ public class LowestPriceBrandProductResponseDto {
 
     @Getter
     @Builder
+    @Schema(name = "상품:카테고리,가격")
     public static class ProductResponseDto {
 
         @JsonProperty("카테고리")
