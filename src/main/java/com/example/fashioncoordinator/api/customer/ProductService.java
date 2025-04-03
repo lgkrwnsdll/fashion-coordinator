@@ -1,5 +1,6 @@
 package com.example.fashioncoordinator.api.customer;
 
+import com.example.fashioncoordinator.api.customer.response.LowestPriceBrandProductResponseDto;
 import com.example.fashioncoordinator.api.customer.response.LowestPriceCombinationResponseDto;
 import com.example.fashioncoordinator.db.ProductEntity;
 import com.example.fashioncoordinator.db.ProductJpaRepository;
@@ -57,5 +58,12 @@ public class ProductService {
             .productList(productList)
             .totalPrice(totalPrice)
             .build();
+    }
+
+    public LowestPriceBrandProductResponseDto getLowestPriceBrandProducts() {
+        ProductEntity productEntity = productJpaRepository.findLowestPriceBrand()
+            .orElseThrow(() -> new CustomException(ProductErrorCode.DATA_MISSING));
+
+        return LowestPriceBrandProductResponseDto.from(productEntity);
     }
 }

@@ -79,7 +79,7 @@ public class ProductIntegrationTest {
 
         // when
         ResultActions perform = mockMvc.perform(
-            get("/product/lowest-prices")
+            get("/product/lowest-price")
         );
 
         // then
