@@ -1,6 +1,6 @@
 package com.example.fashioncoordinator.api.admin;
 
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ManageProductRequestDto {
 
-    @NotEmpty
+    @NotBlank
     private String brand;
 
     private Integer tops;
