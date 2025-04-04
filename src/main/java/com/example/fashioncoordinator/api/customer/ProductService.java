@@ -5,7 +5,7 @@ import com.example.fashioncoordinator.api.customer.response.HighestLowestPriceBr
 import com.example.fashioncoordinator.api.customer.response.LowestPriceBrandProductResponseDto;
 import com.example.fashioncoordinator.api.customer.response.LowestPriceCombinationResponseDto;
 import com.example.fashioncoordinator.db.ProductEntity;
-import com.example.fashioncoordinator.db.ProductJdbcRepository;
+import com.example.fashioncoordinator.db.ProductCustomRepository;
 import com.example.fashioncoordinator.db.ProductJpaRepository;
 import com.example.fashioncoordinator.enums.ProductCategory;
 import com.example.fashioncoordinator.exception.CustomException;
@@ -26,7 +26,7 @@ import org.springframework.stereotype.Service;
 public class ProductService {
 
     private final ProductJpaRepository productJpaRepository;
-    private final ProductJdbcRepository productJdbcRepository;
+    private final ProductCustomRepository productCustomRepository;
 
     public LowestPriceCombinationResponseDto getLowestPriceCombination() {
         List<ProductEntity> productEntityList = productJpaRepository.findAll();
@@ -75,10 +75,10 @@ public class ProductService {
     public HighestLowestPriceBrandResponseDto getHighestAndLowestPriceProducts(
         ProductCategory category) {
         try {
-            ProductResponseDto minPriceProduct = productJdbcRepository.findProductByCategory(
-                category, true);
-            ProductResponseDto maxPriceProduct = productJdbcRepository.findProductByCategory(
-                category, false);
+            ProductResponseDto minPriceProduct = productCustomRepository.findMinPriceProductByCategory(
+                category);
+            ProductResponseDto maxPriceProduct = productCustomRepository.findMaxPriceProductByCategory(
+                category);
 
             return HighestLowestPriceBrandResponseDto.builder()
                 .category(category)
