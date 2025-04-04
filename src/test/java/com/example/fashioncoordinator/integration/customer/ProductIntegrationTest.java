@@ -5,6 +5,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.example.fashioncoordinator.api.customer.response.HighestLowestPriceBrandResponseDto;
+import com.example.fashioncoordinator.api.customer.response.HighestLowestPriceBrandResponseDto.ProductResponseDto;
 import com.example.fashioncoordinator.api.customer.response.LowestPriceBrandProductResponseDto;
 import com.example.fashioncoordinator.api.customer.response.LowestPriceBrandProductResponseWrapper;
 import com.example.fashioncoordinator.api.customer.response.LowestPriceCombinationResponseDto;
@@ -16,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
@@ -147,6 +150,54 @@ public class ProductIntegrationTest {
         perform
             .andExpect(status().isOk())
             .andExpect(content().json(objectMapper.writeValueAsString(expected)))
+            .andDo(print());
+
+    }
+
+    @Test
+    @DisplayName("특정 카테고리의 최고 및 최저가 브랜드 조회 - 200 성공")
+    public void testGetHighestAndLowestPriceProducts_200() throws Exception {
+        // given
+        ProductCategory category = ProductCategory.TOPS;
+
+        HighestLowestPriceBrandResponseDto expected = HighestLowestPriceBrandResponseDto.builder()
+            .category(category)
+            .lowestPriceProductList(
+                List.of(ProductResponseDto.builder().brand("C")
+                    .price(10000).build()))
+            .highestPriceProductList(
+                List.of(ProductResponseDto.builder().brand("I")
+                    .price(11400).build()))
+            .build();
+
+        // when
+        ResultActions perform = mockMvc.perform(
+            get("/product/category/{category}/price", category.getKoreanName())
+        );
+
+        // then
+        perform
+            .andExpect(status().isOk())
+            .andExpect(content().json(objectMapper.writeValueAsString(expected)))
+            .andDo(print());
+
+    }
+
+    @Test
+    @DisplayName("특정 카테고리의 최고 및 최저가 브랜드 조회 - 404 실패")
+    @Sql(scripts = "/clear-tops.sql")
+    public void testGetHighestAndLowestPriceProducts_404() throws Exception {
+        // given
+        ProductCategory category = ProductCategory.TOPS;
+
+        // when
+        ResultActions perform = mockMvc.perform(
+            get("/product/category/{category}/price", category.getKoreanName())
+        );
+
+        // then
+        perform
+            .andExpect(status().isNotFound())
             .andDo(print());
 
     }
