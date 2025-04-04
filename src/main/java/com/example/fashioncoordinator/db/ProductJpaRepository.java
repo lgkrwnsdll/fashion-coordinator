@@ -23,4 +23,5 @@ public interface ProductJpaRepository extends JpaRepository<ProductEntity, Long>
         """)
     Optional<ProductEntity> findLowestPriceBrand();
 
+    Optional<ProductEntity> findByBrand(String brand);
 }
