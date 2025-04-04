@@ -71,7 +71,8 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleAllException(Exception e) {
+        // TODO 에러 내역 로깅
         ErrorCode errorCode = CommonErrorCode.INTERNAL_SERVER_ERROR;
-        return handleExceptionInternal(errorCode, e.toString());
+        return handleExceptionInternal(errorCode, errorCode.getMessage());
     }
 }
