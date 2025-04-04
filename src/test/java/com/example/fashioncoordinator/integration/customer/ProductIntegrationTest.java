@@ -21,9 +21,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@Transactional
 public class ProductIntegrationTest {
 
     @Autowired
@@ -33,8 +35,8 @@ public class ProductIntegrationTest {
     private ObjectMapper objectMapper;
 
     @Test
-    @DisplayName("카테고리 별 최저가격 브랜드 조회")
-    public void testGetLowestPriceCombination() throws Exception {
+    @DisplayName("카테고리 별 최저가격 브랜드 조회 - 200 성공")
+    public void testGetLowestPriceCombination_200() throws Exception {
         // given
         LowestPriceCombinationResponseDto expected = LowestPriceCombinationResponseDto.builder()
             .productList(List.of(
@@ -96,8 +98,26 @@ public class ProductIntegrationTest {
     }
 
     @Test
-    @DisplayName("최저가 단일 브랜드 조회")
-    public void testGetLowestPriceBrandProducts() throws Exception {
+    @DisplayName("카테고리 별 최저가격 브랜드 조회 - 404 실패")
+    @Sql(scripts = "/clear-tops.sql")
+    public void testGetLowestPriceCombination_404() throws Exception {
+        // given
+
+        // when
+        ResultActions perform = mockMvc.perform(
+            get("/product/lowest-price")
+        );
+
+        // then
+        perform
+            .andExpect(status().isNotFound())
+            .andDo(print());
+
+    }
+
+    @Test
+    @DisplayName("최저가 단일 브랜드 조회 - 200 성공")
+    public void testGetLowestPriceBrandProducts_200() throws Exception {
         // given
         LowestPriceBrandProductResponseDto responseDto = LowestPriceBrandProductResponseDto.builder()
             .brand("D")
@@ -150,6 +170,24 @@ public class ProductIntegrationTest {
         perform
             .andExpect(status().isOk())
             .andExpect(content().json(objectMapper.writeValueAsString(expected)))
+            .andDo(print());
+
+    }
+
+    @Test
+    @DisplayName("최저가 단일 브랜드 조회 - 404 실패")
+    @Sql(scripts = "/clear-tops.sql")
+    public void testGetLowestPriceBrandProducts_404() throws Exception {
+        // given
+
+        // when
+        ResultActions perform = mockMvc.perform(
+            get("/product/lowest-price/brand")
+        );
+
+        // then
+        perform
+            .andExpect(status().isNotFound())
             .andDo(print());
 
     }
