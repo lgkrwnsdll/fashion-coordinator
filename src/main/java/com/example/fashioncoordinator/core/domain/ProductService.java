@@ -24,7 +24,7 @@ public class ProductService {
     private final ProductJpaRepository productJpaRepository;
     private final ProductCustomRepository productCustomRepository;
 
-    public CategoryLowestPriceProduct getLowestPriceProductsForAllCategories() {
+    public CategoryMinPriceProduct getCheapestProductsForAllCategories() {
         List<ProductEntity> productEntityList = productJpaRepository.findAll();
 
         int totalPrice = 0;
@@ -55,20 +55,20 @@ public class ProductService {
             totalPrice += entry.getValue();
         }
 
-        return CategoryLowestPriceProduct.builder()
+        return CategoryMinPriceProduct.builder()
             .productList(productList)
             .totalPrice(totalPrice)
             .build();
     }
 
-    public LowestTotalPriceBrand getLowestPriceBrand() {
-        ProductEntity productEntity = productJpaRepository.findLowestPriceBrand()
+    public MinTotalPriceBrandProduct getCheapestBrandProducts() {
+        ProductEntity productEntity = productJpaRepository.findMinTotalPriceBrandProduct()
             .orElseThrow(() -> new CustomException(ProductErrorCode.DATA_MISSING));
 
-        return LowestTotalPriceBrand.from(productEntity);
+        return MinTotalPriceBrandProduct.from(productEntity);
     }
 
-    public HighestLowestPriceProduct getHighestAndLowestPriceProducts(
+    public MaxMinPriceProduct getMaxAndMinPriceProducts(
         ProductCategory category) {
         try {
             Product minPriceProduct = Product.from(
@@ -78,10 +78,10 @@ public class ProductService {
                 productCustomRepository.findMaxPriceProductByCategory(category)
             );
 
-            return HighestLowestPriceProduct.builder()
+            return MaxMinPriceProduct.builder()
                 .category(category)
-                .lowestPriceProductList(List.of(minPriceProduct))
-                .highestPriceProductList(List.of(maxPriceProduct))
+                .minPriceProductList(List.of(minPriceProduct))
+                .maxPriceProductList(List.of(maxPriceProduct))
                 .build();
         } catch (EmptyResultDataAccessException e) {
             throw new CustomException(ProductErrorCode.DATA_MISSING);

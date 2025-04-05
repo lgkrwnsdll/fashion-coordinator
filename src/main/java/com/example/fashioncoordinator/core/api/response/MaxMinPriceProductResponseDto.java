@@ -1,7 +1,7 @@
 package com.example.fashioncoordinator.core.api.response;
 
 import com.example.fashioncoordinator.core.api.serializer.NumberWithCommaSerializer;
-import com.example.fashioncoordinator.core.domain.HighestLowestPriceProduct;
+import com.example.fashioncoordinator.core.domain.MaxMinPriceProduct;
 import com.example.fashioncoordinator.core.domain.Product;
 import com.example.fashioncoordinator.enums.ProductCategory;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,10 +13,11 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class HighestLowestPriceProductResponseDto {
+public class MaxMinPriceProductResponseDto {
 
     @Getter
     @Builder
+    @Schema(name = "상품:카테고리 제외")
     public static class ProductResponseDto {
 
         @JsonProperty("브랜드")
@@ -39,18 +40,18 @@ public class HighestLowestPriceProductResponseDto {
     private ProductCategory category;
 
     @JsonProperty("최저가")
-    private List<ProductResponseDto> lowestPriceProductList;
+    private List<ProductResponseDto> minPriceProductList;
 
     @JsonProperty("최고가")
-    private List<ProductResponseDto> highestPriceProductList;
+    private List<ProductResponseDto> maxPriceProductList;
 
-    public static HighestLowestPriceProductResponseDto from(
-        HighestLowestPriceProduct highestLowestPriceProduct) {
-        return HighestLowestPriceProductResponseDto.builder()
-            .category(highestLowestPriceProduct.getCategory())
-            .lowestPriceProductList(highestLowestPriceProduct.getLowestPriceProductList().stream()
+    public static MaxMinPriceProductResponseDto from(
+        MaxMinPriceProduct maxMinPriceProduct) {
+        return MaxMinPriceProductResponseDto.builder()
+            .category(maxMinPriceProduct.getCategory())
+            .minPriceProductList(maxMinPriceProduct.getMinPriceProductList().stream()
                 .map(ProductResponseDto::from).toList())
-            .highestPriceProductList(highestLowestPriceProduct.getHighestPriceProductList().stream()
+            .maxPriceProductList(maxMinPriceProduct.getMaxPriceProductList().stream()
                 .map(ProductResponseDto::from).toList())
             .build();
     }
