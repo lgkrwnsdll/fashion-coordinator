@@ -18,7 +18,7 @@ public class AdminProductService {
             .orElse(null);
 
         if (productEntity != null) {
-            productEntity.updateAllCategory(brandPriceInfo);
+            productEntity.updateAllCategory(brandPriceInfo.toUpdatePriceQuery());
         } else {
             ProductEntity newProductEntity = ProductEntity.builder()
                 .brand(brand)

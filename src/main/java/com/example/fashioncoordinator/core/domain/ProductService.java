@@ -71,10 +71,12 @@ public class ProductService {
     public HighestLowestPriceProduct getHighestAndLowestPriceProducts(
         ProductCategory category) {
         try {
-            Product minPriceProduct = productCustomRepository.findMinPriceProductByCategory(
-                category);
-            Product maxPriceProduct = productCustomRepository.findMaxPriceProductByCategory(
-                category);
+            Product minPriceProduct = Product.from(
+                productCustomRepository.findMinPriceProductByCategory(category)
+            );
+            Product maxPriceProduct = Product.from(
+                productCustomRepository.findMaxPriceProductByCategory(category)
+            );
 
             return HighestLowestPriceProduct.builder()
                 .category(category)

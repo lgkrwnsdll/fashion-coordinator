@@ -1,5 +1,6 @@
 package com.example.fashioncoordinator.admin.domain;
 
+import com.example.fashioncoordinator.db.query.PriceUpdateQueryDto;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -22,5 +23,18 @@ public class BrandPriceInfo {
     private Integer socks;
 
     private Integer accessories;
+
+    public PriceUpdateQueryDto toUpdatePriceQuery() {
+        return PriceUpdateQueryDto.builder()
+            .tops(tops)
+            .outerwear(outerwear)
+            .pants(pants)
+            .sneakers(sneakers)
+            .bag(bag)
+            .hat(hat)
+            .socks(socks)
+            .accessories(accessories)
+            .build();
+    }
 
 }
