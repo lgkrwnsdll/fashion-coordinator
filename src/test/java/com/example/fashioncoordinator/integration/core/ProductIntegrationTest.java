@@ -6,7 +6,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.example.fashioncoordinator.core.api.response.HighestLowestPriceBrandResponseDto;
-import com.example.fashioncoordinator.core.api.response.HighestLowestPriceBrandResponseDto.ProductResponseDto;
 import com.example.fashioncoordinator.core.api.response.LowestPriceBrandProductResponseDto;
 import com.example.fashioncoordinator.core.api.response.LowestPriceBrandProductResponseWrapper;
 import com.example.fashioncoordinator.core.api.response.LowestPriceCombinationResponseDto;
@@ -201,10 +200,10 @@ public class ProductIntegrationTest {
         HighestLowestPriceBrandResponseDto expected = HighestLowestPriceBrandResponseDto.builder()
             .category(category)
             .lowestPriceProductList(
-                List.of(ProductResponseDto.builder().brand("C")
+                List.of(HighestLowestPriceBrandResponseDto.ProductResponseDto.builder().brand("C")
                     .price(10000).build()))
             .highestPriceProductList(
-                List.of(ProductResponseDto.builder().brand("I")
+                List.of(HighestLowestPriceBrandResponseDto.ProductResponseDto.builder().brand("I")
                     .price(11400).build()))
             .build();
 

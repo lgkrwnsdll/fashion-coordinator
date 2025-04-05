@@ -1,6 +1,6 @@
 package com.example.fashioncoordinator.unit.core;
 
-import com.example.fashioncoordinator.core.api.response.HighestLowestPriceBrandResponseDto.ProductResponseDto;
+import com.example.fashioncoordinator.core.domain.Product;
 import com.example.fashioncoordinator.db.ProductCustomRepository;
 import com.example.fashioncoordinator.db.ProductEntity;
 import com.example.fashioncoordinator.db.ProductJpaRepository;
@@ -100,7 +100,7 @@ public class ProductRepositoryUnitTest {
         String expectedBrand = "C";
 
         // when
-        ProductResponseDto minPriceProductByCategory = productCustomRepository.findMinPriceProductByCategory(
+        Product minPriceProductByCategory = productCustomRepository.findMinPriceProductByCategory(
             category);
 
         // then
@@ -117,7 +117,7 @@ public class ProductRepositoryUnitTest {
         String expectedBrand = "I";
 
         // when
-        ProductResponseDto maxPriceProductByCategory = productCustomRepository.findMaxPriceProductByCategory(
+        Product maxPriceProductByCategory = productCustomRepository.findMaxPriceProductByCategory(
             category);
 
         // then
