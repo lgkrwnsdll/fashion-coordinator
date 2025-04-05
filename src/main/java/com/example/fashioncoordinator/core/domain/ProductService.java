@@ -24,7 +24,7 @@ public class ProductService {
     private final ProductJpaRepository productJpaRepository;
     private final ProductCustomRepository productCustomRepository;
 
-    public LowestPriceCombination getLowestPriceCombination() {
+    public CategoryLowestPriceProduct getLowestPriceProductsForAllCategories() {
         List<ProductEntity> productEntityList = productJpaRepository.findAll();
 
         int totalPrice = 0;
@@ -55,20 +55,20 @@ public class ProductService {
             totalPrice += entry.getValue();
         }
 
-        return LowestPriceCombination.builder()
+        return CategoryLowestPriceProduct.builder()
             .productList(productList)
             .totalPrice(totalPrice)
             .build();
     }
 
-    public LowestPriceBrandProduct getLowestPriceBrandProducts() {
+    public LowestTotalPriceBrand getLowestPriceBrand() {
         ProductEntity productEntity = productJpaRepository.findLowestPriceBrand()
             .orElseThrow(() -> new CustomException(ProductErrorCode.DATA_MISSING));
 
-        return LowestPriceBrandProduct.from(productEntity);
+        return LowestTotalPriceBrand.from(productEntity);
     }
 
-    public HighestLowestPriceBrand getHighestAndLowestPriceProducts(
+    public HighestLowestPriceProduct getHighestAndLowestPriceProducts(
         ProductCategory category) {
         try {
             Product minPriceProduct = productCustomRepository.findMinPriceProductByCategory(
@@ -76,7 +76,7 @@ public class ProductService {
             Product maxPriceProduct = productCustomRepository.findMaxPriceProductByCategory(
                 category);
 
-            return HighestLowestPriceBrand.builder()
+            return HighestLowestPriceProduct.builder()
                 .category(category)
                 .lowestPriceProductList(List.of(minPriceProduct))
                 .highestPriceProductList(List.of(maxPriceProduct))

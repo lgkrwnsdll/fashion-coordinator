@@ -8,7 +8,7 @@ import lombok.Getter;
 @Getter
 @Builder
 @EqualsAndHashCode
-public class LowestPriceCombination {
+public class CategoryLowestPriceProduct {
 
     private List<Product> productList;
 

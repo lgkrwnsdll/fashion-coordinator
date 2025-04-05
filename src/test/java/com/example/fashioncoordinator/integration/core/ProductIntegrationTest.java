@@ -5,10 +5,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.example.fashioncoordinator.core.api.response.HighestLowestPriceBrandResponseDto;
-import com.example.fashioncoordinator.core.api.response.LowestPriceBrandProductResponseDto;
-import com.example.fashioncoordinator.core.api.response.LowestPriceBrandProductResponseWrapper;
-import com.example.fashioncoordinator.core.api.response.LowestPriceCombinationResponseDto;
+import com.example.fashioncoordinator.core.api.response.HighestLowestPriceProductResponseDto;
+import com.example.fashioncoordinator.core.api.response.LowestTotalPriceBrandResponseDto;
+import com.example.fashioncoordinator.core.api.response.LowestTotalPriceBrandResponseWrapper;
+import com.example.fashioncoordinator.core.api.response.CategoryLowestPriceProductResponseDto;
 import com.example.fashioncoordinator.enums.ProductCategory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
@@ -37,44 +37,44 @@ public class ProductIntegrationTest {
     @DisplayName("카테고리 별 최저가격 브랜드 조회 - 200 성공")
     public void testGetLowestPriceCombination_200() throws Exception {
         // given
-        LowestPriceCombinationResponseDto expected = LowestPriceCombinationResponseDto.builder()
+        CategoryLowestPriceProductResponseDto expected = CategoryLowestPriceProductResponseDto.builder()
             .productList(List.of(
-                LowestPriceCombinationResponseDto.ProductResponseDto.builder()
+                CategoryLowestPriceProductResponseDto.ProductResponseDto.builder()
                     .category(ProductCategory.TOPS)
                     .brand("C")
                     .price(10_000)
                     .build(),
-                LowestPriceCombinationResponseDto.ProductResponseDto.builder()
+                CategoryLowestPriceProductResponseDto.ProductResponseDto.builder()
                     .category(ProductCategory.OUTERWEAR)
                     .brand("E")
                     .price(5_000)
                     .build(),
-                LowestPriceCombinationResponseDto.ProductResponseDto.builder()
+                CategoryLowestPriceProductResponseDto.ProductResponseDto.builder()
                     .category(ProductCategory.PANTS)
                     .brand("D")
                     .price(3_000)
                     .build(),
-                LowestPriceCombinationResponseDto.ProductResponseDto.builder()
+                CategoryLowestPriceProductResponseDto.ProductResponseDto.builder()
                     .category(ProductCategory.SNEAKERS)
                     .brand("G")
                     .price(9_000)
                     .build(),
-                LowestPriceCombinationResponseDto.ProductResponseDto.builder()
+                CategoryLowestPriceProductResponseDto.ProductResponseDto.builder()
                     .category(ProductCategory.BAG)
                     .brand("A")
                     .price(2_000)
                     .build(),
-                LowestPriceCombinationResponseDto.ProductResponseDto.builder()
+                CategoryLowestPriceProductResponseDto.ProductResponseDto.builder()
                     .category(ProductCategory.HAT)
                     .brand("D")
                     .price(1_500)
                     .build(),
-                LowestPriceCombinationResponseDto.ProductResponseDto.builder()
+                CategoryLowestPriceProductResponseDto.ProductResponseDto.builder()
                     .category(ProductCategory.SOCKS)
                     .brand("I")
                     .price(1_700)
                     .build(),
-                LowestPriceCombinationResponseDto.ProductResponseDto.builder()
+                CategoryLowestPriceProductResponseDto.ProductResponseDto.builder()
                     .category(ProductCategory.ACCESSORIES)
                     .brand("F")
                     .price(1_900)
@@ -118,38 +118,38 @@ public class ProductIntegrationTest {
     @DisplayName("최저가 단일 브랜드 조회 - 200 성공")
     public void testGetLowestPriceBrandProducts_200() throws Exception {
         // given
-        LowestPriceBrandProductResponseDto responseDto = LowestPriceBrandProductResponseDto.builder()
+        LowestTotalPriceBrandResponseDto responseDto = LowestTotalPriceBrandResponseDto.builder()
             .brand("D")
             .productList(List.of(
-                LowestPriceBrandProductResponseDto.ProductResponseDto.builder()
+                LowestTotalPriceBrandResponseDto.ProductResponseDto.builder()
                     .category(ProductCategory.TOPS)
                     .price(10100)
                     .build(),
-                LowestPriceBrandProductResponseDto.ProductResponseDto.builder()
+                LowestTotalPriceBrandResponseDto.ProductResponseDto.builder()
                     .category(ProductCategory.OUTERWEAR)
                     .price(5100)
                     .build(),
-                LowestPriceBrandProductResponseDto.ProductResponseDto.builder()
+                LowestTotalPriceBrandResponseDto.ProductResponseDto.builder()
                     .category(ProductCategory.PANTS)
                     .price(3000)
                     .build(),
-                LowestPriceBrandProductResponseDto.ProductResponseDto.builder()
+                LowestTotalPriceBrandResponseDto.ProductResponseDto.builder()
                     .category(ProductCategory.SNEAKERS)
                     .price(9500)
                     .build(),
-                LowestPriceBrandProductResponseDto.ProductResponseDto.builder()
+                LowestTotalPriceBrandResponseDto.ProductResponseDto.builder()
                     .category(ProductCategory.BAG)
                     .price(2500)
                     .build(),
-                LowestPriceBrandProductResponseDto.ProductResponseDto.builder()
+                LowestTotalPriceBrandResponseDto.ProductResponseDto.builder()
                     .category(ProductCategory.HAT)
                     .price(1500)
                     .build(),
-                LowestPriceBrandProductResponseDto.ProductResponseDto.builder()
+                LowestTotalPriceBrandResponseDto.ProductResponseDto.builder()
                     .category(ProductCategory.SOCKS)
                     .price(2400)
                     .build(),
-                LowestPriceBrandProductResponseDto.ProductResponseDto.builder()
+                LowestTotalPriceBrandResponseDto.ProductResponseDto.builder()
                     .category(ProductCategory.ACCESSORIES)
                     .price(2000)
                     .build()
@@ -157,7 +157,7 @@ public class ProductIntegrationTest {
             .totalPrice(36100)
             .build();
 
-        LowestPriceBrandProductResponseWrapper expected = LowestPriceBrandProductResponseWrapper.from(
+        LowestTotalPriceBrandResponseWrapper expected = LowestTotalPriceBrandResponseWrapper.from(
             responseDto);
 
         // when
@@ -197,13 +197,13 @@ public class ProductIntegrationTest {
         // given
         ProductCategory category = ProductCategory.TOPS;
 
-        HighestLowestPriceBrandResponseDto expected = HighestLowestPriceBrandResponseDto.builder()
+        HighestLowestPriceProductResponseDto expected = HighestLowestPriceProductResponseDto.builder()
             .category(category)
             .lowestPriceProductList(
-                List.of(HighestLowestPriceBrandResponseDto.ProductResponseDto.builder().brand("C")
+                List.of(HighestLowestPriceProductResponseDto.ProductResponseDto.builder().brand("C")
                     .price(10000).build()))
             .highestPriceProductList(
-                List.of(HighestLowestPriceBrandResponseDto.ProductResponseDto.builder().brand("I")
+                List.of(HighestLowestPriceProductResponseDto.ProductResponseDto.builder().brand("I")
                     .price(11400).build()))
             .build();
 

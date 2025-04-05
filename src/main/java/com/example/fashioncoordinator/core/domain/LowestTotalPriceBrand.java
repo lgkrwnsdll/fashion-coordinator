@@ -9,7 +9,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class LowestPriceBrandProduct {
+public class LowestTotalPriceBrand {
 
     private String brand;
 
@@ -17,7 +17,7 @@ public class LowestPriceBrandProduct {
 
     private int totalPrice;
 
-    public static LowestPriceBrandProduct from(ProductEntity product) {
+    public static LowestTotalPriceBrand from(ProductEntity product) {
         int totalPrice = 0;
         List<Product> productList = new ArrayList<>();
         for (ProductCategory category : ProductCategory.values()) {
@@ -31,7 +31,7 @@ public class LowestPriceBrandProduct {
             totalPrice += price;
         }
 
-        return LowestPriceBrandProduct.builder()
+        return LowestTotalPriceBrand.builder()
             .brand(product.getBrand())
             .productList(productList)
             .totalPrice(totalPrice)

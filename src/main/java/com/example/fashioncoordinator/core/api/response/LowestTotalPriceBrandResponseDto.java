@@ -1,7 +1,7 @@
 package com.example.fashioncoordinator.core.api.response;
 
 import com.example.fashioncoordinator.core.api.serializer.NumberWithCommaSerializer;
-import com.example.fashioncoordinator.core.domain.LowestPriceBrandProduct;
+import com.example.fashioncoordinator.core.domain.LowestTotalPriceBrand;
 import com.example.fashioncoordinator.core.domain.Product;
 import com.example.fashioncoordinator.enums.ProductCategory;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,7 +13,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class LowestPriceBrandProductResponseDto {
+public class LowestTotalPriceBrandResponseDto {
 
     @Getter
     @Builder
@@ -46,14 +46,13 @@ public class LowestPriceBrandProductResponseDto {
     @JsonSerialize(using = NumberWithCommaSerializer.class)
     private int totalPrice;
 
-    public static LowestPriceBrandProductResponseDto from(
-        LowestPriceBrandProduct lowestPriceBrandProduct) {
-        return LowestPriceBrandProductResponseDto.builder()
-            .brand(lowestPriceBrandProduct.getBrand())
+    public static LowestTotalPriceBrandResponseDto from(
+        LowestTotalPriceBrand lowestTotalPriceBrand) {
+        return LowestTotalPriceBrandResponseDto.builder()
+            .brand(lowestTotalPriceBrand.getBrand())
             .productList(
-                lowestPriceBrandProduct.getProductList().stream().map(ProductResponseDto::from)
-                    .toList())
-            .totalPrice(lowestPriceBrandProduct.getTotalPrice())
+                lowestTotalPriceBrand.getProductList().stream().map(ProductResponseDto::from).toList())
+            .totalPrice(lowestTotalPriceBrand.getTotalPrice())
             .build();
     }
 

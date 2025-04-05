@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class HighestLowestPriceBrand {
+public class HighestLowestPriceProduct {
 
     private ProductCategory category;
 

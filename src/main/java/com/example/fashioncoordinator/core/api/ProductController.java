@@ -1,9 +1,9 @@
 package com.example.fashioncoordinator.core.api;
 
-import com.example.fashioncoordinator.core.api.response.HighestLowestPriceBrandResponseDto;
-import com.example.fashioncoordinator.core.api.response.LowestPriceBrandProductResponseDto;
-import com.example.fashioncoordinator.core.api.response.LowestPriceBrandProductResponseWrapper;
-import com.example.fashioncoordinator.core.api.response.LowestPriceCombinationResponseDto;
+import com.example.fashioncoordinator.core.api.response.HighestLowestPriceProductResponseDto;
+import com.example.fashioncoordinator.core.api.response.LowestTotalPriceBrandResponseDto;
+import com.example.fashioncoordinator.core.api.response.LowestTotalPriceBrandResponseWrapper;
+import com.example.fashioncoordinator.core.api.response.CategoryLowestPriceProductResponseDto;
 import com.example.fashioncoordinator.core.domain.ProductService;
 import com.example.fashioncoordinator.enums.ProductCategory;
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,9 +32,10 @@ public class ProductController {
         }
     )
     @GetMapping("/lowest-price")
-    public ResponseEntity<LowestPriceCombinationResponseDto> getLowestPriceCombination() {
+    public ResponseEntity<CategoryLowestPriceProductResponseDto> getLowestPriceProductsForAllCategories() {
         return ResponseEntity.ok(
-            LowestPriceCombinationResponseDto.from(productService.getLowestPriceCombination()));
+            CategoryLowestPriceProductResponseDto.from(
+                productService.getLowestPriceProductsForAllCategories()));
     }
 
     @Operation(summary = "최저가 단일 브랜드 조회")
@@ -45,11 +46,11 @@ public class ProductController {
         }
     )
     @GetMapping("/lowest-price/brand")
-    public ResponseEntity<LowestPriceBrandProductResponseWrapper> getLowestPriceBrandProducts() {
+    public ResponseEntity<LowestTotalPriceBrandResponseWrapper> getLowestPriceBrand() {
         return ResponseEntity.ok(
-            LowestPriceBrandProductResponseWrapper.from(
-                LowestPriceBrandProductResponseDto.from(
-                    productService.getLowestPriceBrandProducts())));
+            LowestTotalPriceBrandResponseWrapper.from(
+                LowestTotalPriceBrandResponseDto.from(
+                    productService.getLowestPriceBrand())));
     }
 
     @Operation(summary = "특정 카테고리의 최고 및 최저가 브랜드 조회")
@@ -60,10 +61,10 @@ public class ProductController {
         }
     )
     @GetMapping("/category/{category}/price")
-    public ResponseEntity<HighestLowestPriceBrandResponseDto> getHighestAndLowestPriceProducts(
+    public ResponseEntity<HighestLowestPriceProductResponseDto> getHighestAndLowestPriceProducts(
         @PathVariable ProductCategory category) {
         return ResponseEntity.ok(
-            HighestLowestPriceBrandResponseDto.from(
+            HighestLowestPriceProductResponseDto.from(
                 productService.getHighestAndLowestPriceProducts(category)));
     }
 }

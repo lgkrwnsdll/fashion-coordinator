@@ -6,13 +6,13 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class LowestPriceBrandProductResponseWrapper {
+public class LowestTotalPriceBrandResponseWrapper {
 
     @JsonProperty("최저가")
-    private LowestPriceBrandProductResponseDto responseDto;
+    private LowestTotalPriceBrandResponseDto responseDto;
 
-    public static LowestPriceBrandProductResponseWrapper from(
-        LowestPriceBrandProductResponseDto responseDto) {
+    public static LowestTotalPriceBrandResponseWrapper from(
+        LowestTotalPriceBrandResponseDto responseDto) {
         return builder().responseDto(responseDto).build();
     }
 

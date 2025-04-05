@@ -1,7 +1,7 @@
 package com.example.fashioncoordinator.core.api.response;
 
 import com.example.fashioncoordinator.core.api.serializer.NumberWithCommaSerializer;
-import com.example.fashioncoordinator.core.domain.HighestLowestPriceBrand;
+import com.example.fashioncoordinator.core.domain.HighestLowestPriceProduct;
 import com.example.fashioncoordinator.core.domain.Product;
 import com.example.fashioncoordinator.enums.ProductCategory;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,7 +13,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class HighestLowestPriceBrandResponseDto {
+public class HighestLowestPriceProductResponseDto {
 
     @Getter
     @Builder
@@ -44,13 +44,13 @@ public class HighestLowestPriceBrandResponseDto {
     @JsonProperty("최고가")
     private List<ProductResponseDto> highestPriceProductList;
 
-    public static HighestLowestPriceBrandResponseDto from(
-        HighestLowestPriceBrand highestLowestPriceBrand) {
-        return HighestLowestPriceBrandResponseDto.builder()
-            .category(highestLowestPriceBrand.getCategory())
-            .lowestPriceProductList(highestLowestPriceBrand.getLowestPriceProductList().stream()
+    public static HighestLowestPriceProductResponseDto from(
+        HighestLowestPriceProduct highestLowestPriceProduct) {
+        return HighestLowestPriceProductResponseDto.builder()
+            .category(highestLowestPriceProduct.getCategory())
+            .lowestPriceProductList(highestLowestPriceProduct.getLowestPriceProductList().stream()
                 .map(ProductResponseDto::from).toList())
-            .highestPriceProductList(highestLowestPriceBrand.getHighestPriceProductList().stream()
+            .highestPriceProductList(highestLowestPriceProduct.getHighestPriceProductList().stream()
                 .map(ProductResponseDto::from).toList())
             .build();
     }
