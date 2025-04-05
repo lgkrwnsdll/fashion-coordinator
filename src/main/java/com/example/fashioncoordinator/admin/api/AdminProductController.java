@@ -1,5 +1,6 @@
-package com.example.fashioncoordinator.api.admin;
+package com.example.fashioncoordinator.admin.api;
 
+import com.example.fashioncoordinator.admin.domain.AdminProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;

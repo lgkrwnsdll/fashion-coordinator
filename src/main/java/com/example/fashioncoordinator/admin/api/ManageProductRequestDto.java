@@ -1,5 +1,6 @@
-package com.example.fashioncoordinator.api.admin;
+package com.example.fashioncoordinator.admin.api;
 
+import com.example.fashioncoordinator.admin.domain.BrandPriceInfo;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

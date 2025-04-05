@@ -1,4 +1,4 @@
-package com.example.fashioncoordinator.api.admin;
+package com.example.fashioncoordinator.admin.api;
 
 import lombok.Builder;
 import lombok.Getter;

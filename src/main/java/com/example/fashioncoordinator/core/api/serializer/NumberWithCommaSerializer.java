@@ -1,4 +1,4 @@
-package com.example.fashioncoordinator.serializer;
+package com.example.fashioncoordinator.core.api.serializer;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;

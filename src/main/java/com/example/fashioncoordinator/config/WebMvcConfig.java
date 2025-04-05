@@ -1,6 +1,6 @@
 package com.example.fashioncoordinator.config;
 
-import com.example.fashioncoordinator.converter.ProductCategoryRequestConverter;
+import com.example.fashioncoordinator.core.api.converter.ProductCategoryRequestConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;

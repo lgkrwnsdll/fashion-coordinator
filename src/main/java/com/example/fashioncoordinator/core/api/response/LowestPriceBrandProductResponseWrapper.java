@@ -1,4 +1,4 @@
-package com.example.fashioncoordinator.api.customer.response;
+package com.example.fashioncoordinator.core.api.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;

@@ -1,9 +1,10 @@
-package com.example.fashioncoordinator.api.customer;
+package com.example.fashioncoordinator.core.api;
 
-import com.example.fashioncoordinator.api.customer.response.HighestLowestPriceBrandResponseDto;
-import com.example.fashioncoordinator.api.customer.response.LowestPriceBrandProductResponseDto;
-import com.example.fashioncoordinator.api.customer.response.LowestPriceBrandProductResponseWrapper;
-import com.example.fashioncoordinator.api.customer.response.LowestPriceCombinationResponseDto;
+import com.example.fashioncoordinator.core.domain.ProductService;
+import com.example.fashioncoordinator.core.api.response.HighestLowestPriceBrandResponseDto;
+import com.example.fashioncoordinator.core.api.response.LowestPriceBrandProductResponseDto;
+import com.example.fashioncoordinator.core.api.response.LowestPriceBrandProductResponseWrapper;
+import com.example.fashioncoordinator.core.api.response.LowestPriceCombinationResponseDto;
 import com.example.fashioncoordinator.enums.ProductCategory;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;

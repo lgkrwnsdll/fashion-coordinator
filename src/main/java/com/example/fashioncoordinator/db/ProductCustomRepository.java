@@ -1,7 +1,7 @@
 package com.example.fashioncoordinator.db;
 
-import com.example.fashioncoordinator.api.customer.response.HighestLowestPriceBrandResponseDto;
-import com.example.fashioncoordinator.api.customer.response.HighestLowestPriceBrandResponseDto.ProductResponseDto;
+import com.example.fashioncoordinator.core.api.response.HighestLowestPriceBrandResponseDto;
+import com.example.fashioncoordinator.core.api.response.HighestLowestPriceBrandResponseDto.ProductResponseDto;
 import com.example.fashioncoordinator.enums.ProductCategory;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;

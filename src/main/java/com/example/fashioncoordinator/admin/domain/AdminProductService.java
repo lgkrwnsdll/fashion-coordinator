@@ -1,5 +1,6 @@
-package com.example.fashioncoordinator.api.admin;
+package com.example.fashioncoordinator.admin.domain;
 
+import com.example.fashioncoordinator.admin.api.ManageProductRequestDto;
 import com.example.fashioncoordinator.db.ProductEntity;
 import com.example.fashioncoordinator.db.ProductJpaRepository;
 import lombok.RequiredArgsConstructor;

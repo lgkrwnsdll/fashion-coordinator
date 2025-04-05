@@ -5,8 +5,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.example.fashioncoordinator.api.admin.ManageProductRequestDto;
-import com.example.fashioncoordinator.api.admin.ManageProductResponseDto;
+import com.example.fashioncoordinator.admin.api.ManageProductRequestDto;
+import com.example.fashioncoordinator.admin.api.ManageProductResponseDto;
 import com.example.fashioncoordinator.db.ProductEntity;
 import com.example.fashioncoordinator.db.ProductJpaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;

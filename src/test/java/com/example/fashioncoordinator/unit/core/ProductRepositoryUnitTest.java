@@ -1,6 +1,6 @@
-package com.example.fashioncoordinator.unit.customer;
+package com.example.fashioncoordinator.unit.core;
 
-import com.example.fashioncoordinator.api.customer.response.HighestLowestPriceBrandResponseDto.ProductResponseDto;
+import com.example.fashioncoordinator.core.api.response.HighestLowestPriceBrandResponseDto.ProductResponseDto;
 import com.example.fashioncoordinator.db.ProductCustomRepository;
 import com.example.fashioncoordinator.db.ProductEntity;
 import com.example.fashioncoordinator.db.ProductJpaRepository;
