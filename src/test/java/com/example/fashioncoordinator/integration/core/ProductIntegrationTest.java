@@ -34,8 +34,8 @@ public class ProductIntegrationTest {
     private ObjectMapper objectMapper;
 
     @Test
-    @DisplayName("카테고리 별 최저가격 브랜드 조회 - 200 성공")
-    public void testGetLowestPriceProductsForAllCategories_200() throws Exception {
+    @DisplayName("카테고리 별 최저가 상품 조회 - 200 성공")
+    public void testGetCheapestProductsForAllCategories_200() throws Exception {
         // given
         CategoryMinPriceProductResponseDto expected = CategoryMinPriceProductResponseDto.builder()
             .productList(List.of(
@@ -85,7 +85,7 @@ public class ProductIntegrationTest {
 
         // when
         ResultActions perform = mockMvc.perform(
-            get("/product/lowest-price")
+            get("/products/cheapest-by-category")
         );
 
         // then
@@ -97,14 +97,14 @@ public class ProductIntegrationTest {
     }
 
     @Test
-    @DisplayName("카테고리 별 최저가격 브랜드 조회 - 404 실패")
+    @DisplayName("카테고리 별 최저가 상품 조회 - 404 실패")
     @Sql(scripts = "/clear-tops.sql")
-    public void testGetLowestPriceProductsForAllCategories_404() throws Exception {
+    public void testGetCheapestProductsForAllCategories_404() throws Exception {
         // given
 
         // when
         ResultActions perform = mockMvc.perform(
-            get("/product/lowest-price")
+            get("/products/cheapest-by-category")
         );
 
         // then
@@ -115,8 +115,8 @@ public class ProductIntegrationTest {
     }
 
     @Test
-    @DisplayName("최저가 단일 브랜드 조회 - 200 성공")
-    public void testGetLowestPriceBrand_200() throws Exception {
+    @DisplayName("최저가 단일 브랜드의 상품 조회 - 200 성공")
+    public void testGetCheapestBrandProducts_200() throws Exception {
         // given
         MinTotalPriceBrandProductResponseDto responseDto = MinTotalPriceBrandProductResponseDto.builder()
             .brand("D")
@@ -162,7 +162,7 @@ public class ProductIntegrationTest {
 
         // when
         ResultActions perform = mockMvc.perform(
-            get("/product/lowest-price/brand")
+            get("/products/cheapest-brand")
         );
 
         // then
@@ -174,14 +174,14 @@ public class ProductIntegrationTest {
     }
 
     @Test
-    @DisplayName("최저가 단일 브랜드 조회 - 404 실패")
+    @DisplayName("최저가 단일 브랜드의 상품 조회 - 404 실패")
     @Sql(scripts = "/clear-tops.sql")
-    public void testGetLowestPriceBrand_404() throws Exception {
+    public void testGetCheapestBrandProducts_404() throws Exception {
         // given
 
         // when
         ResultActions perform = mockMvc.perform(
-            get("/product/lowest-price/brand")
+            get("/products/cheapest-brand")
         );
 
         // then
@@ -192,8 +192,8 @@ public class ProductIntegrationTest {
     }
 
     @Test
-    @DisplayName("특정 카테고리의 최고 및 최저가 브랜드 조회 - 200 성공")
-    public void testGetHighestAndLowestPriceProducts_200() throws Exception {
+    @DisplayName("특정 카테고리의 최고 및 최저가 상품 조회 - 200 성공")
+    public void testGetMaxAndMinPriceProducts_200() throws Exception {
         // given
         ProductCategory category = ProductCategory.TOPS;
 
@@ -209,7 +209,7 @@ public class ProductIntegrationTest {
 
         // when
         ResultActions perform = mockMvc.perform(
-            get("/product/category/{category}/price", category.getKoreanName())
+            get("/products/categories/{category}/price-range", category.getKoreanName())
         );
 
         // then
@@ -221,15 +221,15 @@ public class ProductIntegrationTest {
     }
 
     @Test
-    @DisplayName("특정 카테고리의 최고 및 최저가 브랜드 조회 - 404 실패")
+    @DisplayName("특정 카테고리의 최고 및 최저가 상품 조회 - 404 실패")
     @Sql(scripts = "/clear-tops.sql")
-    public void testGetHighestAndLowestPriceProducts_404() throws Exception {
+    public void testGetMaxAndMinPriceProducts_404() throws Exception {
         // given
         ProductCategory category = ProductCategory.TOPS;
 
         // when
         ResultActions perform = mockMvc.perform(
-            get("/product/category/{category}/price", category.getKoreanName())
+            get("/products/categories/{category}/price-range", category.getKoreanName())
         );
 
         // then

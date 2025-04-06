@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/product")
+@RequestMapping("/products")
 public class ProductController {
 
     private final ProductService productService;
@@ -31,7 +31,7 @@ public class ProductController {
             @ApiResponse(responseCode = "404", description = "상품 데이터 부족", content = @Content)
         }
     )
-    @GetMapping("/lowest-price")
+    @GetMapping("/cheapest-by-category")
     public ResponseEntity<CategoryMinPriceProductResponseDto> getCheapestProductsForAllCategories() {
         return ResponseEntity.ok(
             CategoryMinPriceProductResponseDto.from(
@@ -45,7 +45,7 @@ public class ProductController {
             @ApiResponse(responseCode = "404", description = "상품 데이터 부족", content = @Content)
         }
     )
-    @GetMapping("/lowest-price/brand")
+    @GetMapping("/cheapest-brand")
     public ResponseEntity<MinTotalPriceBrandResponseWrapper> getCheapestBrandProducts() {
         return ResponseEntity.ok(
             MinTotalPriceBrandResponseWrapper.from(
@@ -60,7 +60,7 @@ public class ProductController {
             @ApiResponse(responseCode = "404", description = "상품 데이터 부족", content = @Content)
         }
     )
-    @GetMapping("/category/{category}/price")
+    @GetMapping("/categories/{category}/price-range")
     public ResponseEntity<MaxMinPriceProductResponseDto> getMaxAndMinPriceProducts(
         @PathVariable ProductCategory category) {
         return ResponseEntity.ok(

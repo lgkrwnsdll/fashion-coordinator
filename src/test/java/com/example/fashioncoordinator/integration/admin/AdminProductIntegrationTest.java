@@ -50,7 +50,7 @@ public class AdminProductIntegrationTest {
 
         // when
         ResultActions perform = mockMvc.perform(
-            post("/admin/product")
+            post("/admin/products")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(requestDto))
         );
@@ -77,7 +77,7 @@ public class AdminProductIntegrationTest {
 
         // when
         ResultActions perform = mockMvc.perform(
-            post("/admin/product")
+            post("/admin/products")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(requestDto))
         );
