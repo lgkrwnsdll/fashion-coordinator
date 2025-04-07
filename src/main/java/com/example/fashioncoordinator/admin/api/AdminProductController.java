@@ -24,7 +24,7 @@ public class AdminProductController {
     @PostMapping("")
     public ResponseEntity<ManageProductResponseDto> manageProduct(
         @Valid @RequestBody ManageProductRequestDto requestDto) {
-        adminProductService.manageProduct(requestDto);
+        adminProductService.manageProduct(requestDto.getBrand(), requestDto.toPriceInfo());
         return ResponseEntity.status(HttpStatus.CREATED)
             .body(ManageProductResponseDto.from("적용 완료"));
     }
