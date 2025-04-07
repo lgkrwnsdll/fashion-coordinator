@@ -1,6 +1,6 @@
 package com.example.fashioncoordinator.db;
 
-import com.example.fashioncoordinator.api.admin.BrandPriceInfo;
+import com.example.fashioncoordinator.admin.domain.BrandPriceInfo;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

@@ -1,15 +1,15 @@
-package com.example.fashioncoordinator.integration.customer;
+package com.example.fashioncoordinator.integration.core;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.example.fashioncoordinator.api.customer.response.HighestLowestPriceBrandResponseDto;
-import com.example.fashioncoordinator.api.customer.response.HighestLowestPriceBrandResponseDto.ProductResponseDto;
-import com.example.fashioncoordinator.api.customer.response.LowestPriceBrandProductResponseDto;
-import com.example.fashioncoordinator.api.customer.response.LowestPriceBrandProductResponseWrapper;
-import com.example.fashioncoordinator.api.customer.response.LowestPriceCombinationResponseDto;
+import com.example.fashioncoordinator.core.api.response.HighestLowestPriceBrandResponseDto;
+import com.example.fashioncoordinator.core.api.response.HighestLowestPriceBrandResponseDto.ProductResponseDto;
+import com.example.fashioncoordinator.core.api.response.LowestPriceBrandProductResponseDto;
+import com.example.fashioncoordinator.core.api.response.LowestPriceBrandProductResponseWrapper;
+import com.example.fashioncoordinator.core.api.response.LowestPriceCombinationResponseDto;
 import com.example.fashioncoordinator.enums.ProductCategory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;

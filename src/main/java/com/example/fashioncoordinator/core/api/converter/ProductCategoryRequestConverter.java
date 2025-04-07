@@ -1,4 +1,4 @@
-package com.example.fashioncoordinator.converter;
+package com.example.fashioncoordinator.core.api.converter;
 
 import com.example.fashioncoordinator.enums.ProductCategory;
 import jakarta.annotation.Nonnull;
