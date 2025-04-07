@@ -1,9 +1,9 @@
 package com.example.fashioncoordinator.unit.core;
 
-import com.example.fashioncoordinator.core.domain.Product;
 import com.example.fashioncoordinator.db.ProductCustomRepository;
 import com.example.fashioncoordinator.db.ProductEntity;
 import com.example.fashioncoordinator.db.ProductJpaRepository;
+import com.example.fashioncoordinator.db.query.CategorizedProductSelectQueryDto;
 import com.example.fashioncoordinator.enums.ProductCategory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -100,7 +100,7 @@ public class ProductRepositoryUnitTest {
         String expectedBrand = "C";
 
         // when
-        Product minPriceProductByCategory = productCustomRepository.findMinPriceProductByCategory(
+        CategorizedProductSelectQueryDto minPriceProductByCategory = productCustomRepository.findMinPriceProductByCategory(
             category);
 
         // then
@@ -117,7 +117,7 @@ public class ProductRepositoryUnitTest {
         String expectedBrand = "I";
 
         // when
-        Product maxPriceProductByCategory = productCustomRepository.findMaxPriceProductByCategory(
+        CategorizedProductSelectQueryDto maxPriceProductByCategory = productCustomRepository.findMaxPriceProductByCategory(
             category);
 
         // then

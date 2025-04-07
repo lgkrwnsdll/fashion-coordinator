@@ -1,6 +1,6 @@
 package com.example.fashioncoordinator.db;
 
-import com.example.fashioncoordinator.admin.domain.BrandPriceInfo;
+import com.example.fashioncoordinator.db.query.PriceUpdateQueryDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -37,15 +37,15 @@ public class ProductEntity extends BaseEntity {
 
     private Integer accessories;
 
-    public void updateAllCategory(BrandPriceInfo brandPriceInfo) {
-        this.tops = brandPriceInfo.getTops();
-        this.outerwear = brandPriceInfo.getOuterwear();
-        this.pants = brandPriceInfo.getPants();
-        this.sneakers = brandPriceInfo.getSneakers();
-        this.bag = brandPriceInfo.getBag();
-        this.hat = brandPriceInfo.getHat();
-        this.socks = brandPriceInfo.getSocks();
-        this.accessories = brandPriceInfo.getAccessories();
+    public void updateAllCategory(PriceUpdateQueryDto queryDto) {
+        this.tops = queryDto.getTops();
+        this.outerwear = queryDto.getOuterwear();
+        this.pants = queryDto.getPants();
+        this.sneakers = queryDto.getSneakers();
+        this.bag = queryDto.getBag();
+        this.hat = queryDto.getHat();
+        this.socks = queryDto.getSocks();
+        this.accessories = queryDto.getAccessories();
     }
 
 }
