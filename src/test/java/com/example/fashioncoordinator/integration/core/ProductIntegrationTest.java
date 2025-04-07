@@ -5,10 +5,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.example.fashioncoordinator.core.api.response.HighestLowestPriceProductResponseDto;
-import com.example.fashioncoordinator.core.api.response.LowestTotalPriceBrandResponseDto;
-import com.example.fashioncoordinator.core.api.response.LowestTotalPriceBrandResponseWrapper;
-import com.example.fashioncoordinator.core.api.response.CategoryLowestPriceProductResponseDto;
+import com.example.fashioncoordinator.core.api.response.MaxMinPriceProductResponseDto;
+import com.example.fashioncoordinator.core.api.response.MinTotalPriceBrandProductResponseDto;
+import com.example.fashioncoordinator.core.api.response.MinTotalPriceBrandResponseWrapper;
+import com.example.fashioncoordinator.core.api.response.CategoryMinPriceProductResponseDto;
 import com.example.fashioncoordinator.enums.ProductCategory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
@@ -34,47 +34,47 @@ public class ProductIntegrationTest {
     private ObjectMapper objectMapper;
 
     @Test
-    @DisplayName("카테고리 별 최저가격 브랜드 조회 - 200 성공")
-    public void testGetLowestPriceCombination_200() throws Exception {
+    @DisplayName("카테고리 별 최저가 상품 조회 - 200 성공")
+    public void testGetCheapestProductsForAllCategories_200() throws Exception {
         // given
-        CategoryLowestPriceProductResponseDto expected = CategoryLowestPriceProductResponseDto.builder()
+        CategoryMinPriceProductResponseDto expected = CategoryMinPriceProductResponseDto.builder()
             .productList(List.of(
-                CategoryLowestPriceProductResponseDto.ProductResponseDto.builder()
+                CategoryMinPriceProductResponseDto.ProductResponseDto.builder()
                     .category(ProductCategory.TOPS)
                     .brand("C")
                     .price(10_000)
                     .build(),
-                CategoryLowestPriceProductResponseDto.ProductResponseDto.builder()
+                CategoryMinPriceProductResponseDto.ProductResponseDto.builder()
                     .category(ProductCategory.OUTERWEAR)
                     .brand("E")
                     .price(5_000)
                     .build(),
-                CategoryLowestPriceProductResponseDto.ProductResponseDto.builder()
+                CategoryMinPriceProductResponseDto.ProductResponseDto.builder()
                     .category(ProductCategory.PANTS)
                     .brand("D")
                     .price(3_000)
                     .build(),
-                CategoryLowestPriceProductResponseDto.ProductResponseDto.builder()
+                CategoryMinPriceProductResponseDto.ProductResponseDto.builder()
                     .category(ProductCategory.SNEAKERS)
                     .brand("G")
                     .price(9_000)
                     .build(),
-                CategoryLowestPriceProductResponseDto.ProductResponseDto.builder()
+                CategoryMinPriceProductResponseDto.ProductResponseDto.builder()
                     .category(ProductCategory.BAG)
                     .brand("A")
                     .price(2_000)
                     .build(),
-                CategoryLowestPriceProductResponseDto.ProductResponseDto.builder()
+                CategoryMinPriceProductResponseDto.ProductResponseDto.builder()
                     .category(ProductCategory.HAT)
                     .brand("D")
                     .price(1_500)
                     .build(),
-                CategoryLowestPriceProductResponseDto.ProductResponseDto.builder()
+                CategoryMinPriceProductResponseDto.ProductResponseDto.builder()
                     .category(ProductCategory.SOCKS)
                     .brand("I")
                     .price(1_700)
                     .build(),
-                CategoryLowestPriceProductResponseDto.ProductResponseDto.builder()
+                CategoryMinPriceProductResponseDto.ProductResponseDto.builder()
                     .category(ProductCategory.ACCESSORIES)
                     .brand("F")
                     .price(1_900)
@@ -85,7 +85,7 @@ public class ProductIntegrationTest {
 
         // when
         ResultActions perform = mockMvc.perform(
-            get("/product/lowest-price")
+            get("/products/cheapest-by-category")
         );
 
         // then
@@ -97,14 +97,14 @@ public class ProductIntegrationTest {
     }
 
     @Test
-    @DisplayName("카테고리 별 최저가격 브랜드 조회 - 404 실패")
+    @DisplayName("카테고리 별 최저가 상품 조회 - 404 실패")
     @Sql(scripts = "/clear-tops.sql")
-    public void testGetLowestPriceCombination_404() throws Exception {
+    public void testGetCheapestProductsForAllCategories_404() throws Exception {
         // given
 
         // when
         ResultActions perform = mockMvc.perform(
-            get("/product/lowest-price")
+            get("/products/cheapest-by-category")
         );
 
         // then
@@ -115,41 +115,41 @@ public class ProductIntegrationTest {
     }
 
     @Test
-    @DisplayName("최저가 단일 브랜드 조회 - 200 성공")
-    public void testGetLowestPriceBrandProducts_200() throws Exception {
+    @DisplayName("최저가 단일 브랜드의 상품 조회 - 200 성공")
+    public void testGetCheapestBrandProducts_200() throws Exception {
         // given
-        LowestTotalPriceBrandResponseDto responseDto = LowestTotalPriceBrandResponseDto.builder()
+        MinTotalPriceBrandProductResponseDto responseDto = MinTotalPriceBrandProductResponseDto.builder()
             .brand("D")
             .productList(List.of(
-                LowestTotalPriceBrandResponseDto.ProductResponseDto.builder()
+                MinTotalPriceBrandProductResponseDto.ProductResponseDto.builder()
                     .category(ProductCategory.TOPS)
                     .price(10100)
                     .build(),
-                LowestTotalPriceBrandResponseDto.ProductResponseDto.builder()
+                MinTotalPriceBrandProductResponseDto.ProductResponseDto.builder()
                     .category(ProductCategory.OUTERWEAR)
                     .price(5100)
                     .build(),
-                LowestTotalPriceBrandResponseDto.ProductResponseDto.builder()
+                MinTotalPriceBrandProductResponseDto.ProductResponseDto.builder()
                     .category(ProductCategory.PANTS)
                     .price(3000)
                     .build(),
-                LowestTotalPriceBrandResponseDto.ProductResponseDto.builder()
+                MinTotalPriceBrandProductResponseDto.ProductResponseDto.builder()
                     .category(ProductCategory.SNEAKERS)
                     .price(9500)
                     .build(),
-                LowestTotalPriceBrandResponseDto.ProductResponseDto.builder()
+                MinTotalPriceBrandProductResponseDto.ProductResponseDto.builder()
                     .category(ProductCategory.BAG)
                     .price(2500)
                     .build(),
-                LowestTotalPriceBrandResponseDto.ProductResponseDto.builder()
+                MinTotalPriceBrandProductResponseDto.ProductResponseDto.builder()
                     .category(ProductCategory.HAT)
                     .price(1500)
                     .build(),
-                LowestTotalPriceBrandResponseDto.ProductResponseDto.builder()
+                MinTotalPriceBrandProductResponseDto.ProductResponseDto.builder()
                     .category(ProductCategory.SOCKS)
                     .price(2400)
                     .build(),
-                LowestTotalPriceBrandResponseDto.ProductResponseDto.builder()
+                MinTotalPriceBrandProductResponseDto.ProductResponseDto.builder()
                     .category(ProductCategory.ACCESSORIES)
                     .price(2000)
                     .build()
@@ -157,12 +157,12 @@ public class ProductIntegrationTest {
             .totalPrice(36100)
             .build();
 
-        LowestTotalPriceBrandResponseWrapper expected = LowestTotalPriceBrandResponseWrapper.from(
+        MinTotalPriceBrandResponseWrapper expected = MinTotalPriceBrandResponseWrapper.from(
             responseDto);
 
         // when
         ResultActions perform = mockMvc.perform(
-            get("/product/lowest-price/brand")
+            get("/products/cheapest-brand")
         );
 
         // then
@@ -174,14 +174,14 @@ public class ProductIntegrationTest {
     }
 
     @Test
-    @DisplayName("최저가 단일 브랜드 조회 - 404 실패")
+    @DisplayName("최저가 단일 브랜드의 상품 조회 - 404 실패")
     @Sql(scripts = "/clear-tops.sql")
-    public void testGetLowestPriceBrandProducts_404() throws Exception {
+    public void testGetCheapestBrandProducts_404() throws Exception {
         // given
 
         // when
         ResultActions perform = mockMvc.perform(
-            get("/product/lowest-price/brand")
+            get("/products/cheapest-brand")
         );
 
         // then
@@ -192,24 +192,24 @@ public class ProductIntegrationTest {
     }
 
     @Test
-    @DisplayName("특정 카테고리의 최고 및 최저가 브랜드 조회 - 200 성공")
-    public void testGetHighestAndLowestPriceProducts_200() throws Exception {
+    @DisplayName("특정 카테고리의 최고 및 최저가 상품 조회 - 200 성공")
+    public void testGetMaxAndMinPriceProducts_200() throws Exception {
         // given
         ProductCategory category = ProductCategory.TOPS;
 
-        HighestLowestPriceProductResponseDto expected = HighestLowestPriceProductResponseDto.builder()
+        MaxMinPriceProductResponseDto expected = MaxMinPriceProductResponseDto.builder()
             .category(category)
-            .lowestPriceProductList(
-                List.of(HighestLowestPriceProductResponseDto.ProductResponseDto.builder().brand("C")
+            .minPriceProductList(
+                List.of(MaxMinPriceProductResponseDto.ProductResponseDto.builder().brand("C")
                     .price(10000).build()))
-            .highestPriceProductList(
-                List.of(HighestLowestPriceProductResponseDto.ProductResponseDto.builder().brand("I")
+            .maxPriceProductList(
+                List.of(MaxMinPriceProductResponseDto.ProductResponseDto.builder().brand("I")
                     .price(11400).build()))
             .build();
 
         // when
         ResultActions perform = mockMvc.perform(
-            get("/product/category/{category}/price", category.getKoreanName())
+            get("/products/categories/{category}/price-range", category.getKoreanName())
         );
 
         // then
@@ -221,15 +221,15 @@ public class ProductIntegrationTest {
     }
 
     @Test
-    @DisplayName("특정 카테고리의 최고 및 최저가 브랜드 조회 - 404 실패")
+    @DisplayName("특정 카테고리의 최고 및 최저가 상품 조회 - 404 실패")
     @Sql(scripts = "/clear-tops.sql")
-    public void testGetHighestAndLowestPriceProducts_404() throws Exception {
+    public void testGetMaxAndMinPriceProducts_404() throws Exception {
         // given
         ProductCategory category = ProductCategory.TOPS;
 
         // when
         ResultActions perform = mockMvc.perform(
-            get("/product/category/{category}/price", category.getKoreanName())
+            get("/products/categories/{category}/price-range", category.getKoreanName())
         );
 
         // then

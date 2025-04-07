@@ -7,12 +7,12 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class HighestLowestPriceProduct {
+public class MaxMinPriceProduct {
 
     private ProductCategory category;
 
-    private List<Product> lowestPriceProductList;
+    private List<Product> minPriceProductList;
 
-    private List<Product> highestPriceProductList;
+    private List<Product> maxPriceProductList;
 
 }

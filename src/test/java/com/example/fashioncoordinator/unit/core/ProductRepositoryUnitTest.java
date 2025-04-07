@@ -32,7 +32,8 @@ public class ProductRepositoryUnitTest {
             // given
 
             // when
-            ProductEntity productEntity = productJpaRepository.findLowestPriceBrand().orElseThrow();
+            ProductEntity productEntity = productJpaRepository.findMinTotalPriceBrandProduct()
+                .orElseThrow();
 
             // then
             String actual = productEntity.getBrand();
@@ -58,7 +59,8 @@ public class ProductRepositoryUnitTest {
             productJpaRepository.save(newProductEntity);
 
             // when
-            ProductEntity productEntity = productJpaRepository.findLowestPriceBrand().orElseThrow();
+            ProductEntity productEntity = productJpaRepository.findMinTotalPriceBrandProduct()
+                .orElseThrow();
 
             // then
             Assertions.assertEquals(newProductEntity.getBrand(), productEntity.getBrand());
@@ -83,7 +85,8 @@ public class ProductRepositoryUnitTest {
             productJpaRepository.save(newProductEntity);
 
             // when
-            ProductEntity productEntity = productJpaRepository.findLowestPriceBrand().orElseThrow();
+            ProductEntity productEntity = productJpaRepository.findMinTotalPriceBrandProduct()
+                .orElseThrow();
 
             // then
             Assertions.assertEquals("D", productEntity.getBrand());

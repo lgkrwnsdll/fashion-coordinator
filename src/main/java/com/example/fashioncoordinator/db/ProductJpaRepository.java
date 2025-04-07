@@ -21,7 +21,7 @@ public interface ProductJpaRepository extends JpaRepository<ProductEntity, Long>
                 p.brand DESC
             LIMIT 1
         """)
-    Optional<ProductEntity> findLowestPriceBrand();
+    Optional<ProductEntity> findMinTotalPriceBrandProduct();
 
     Optional<ProductEntity> findByBrand(String brand);
 }
