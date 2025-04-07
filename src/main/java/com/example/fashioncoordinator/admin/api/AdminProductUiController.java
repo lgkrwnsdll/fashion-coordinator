@@ -10,7 +10,7 @@ public class AdminProductUiController {
 
     @GetMapping
     public String viewProductManagement() {
-        return "admin-product";
+        return "admin/admin-product";
     }
 
 }

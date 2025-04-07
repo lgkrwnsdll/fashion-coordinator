@@ -26,7 +26,7 @@ public class ProductUiController {
 
         model.addAttribute("data", product);
 
-        return "cheapest-by-category";
+        return "core/cheapest-by-category";
     }
 
     @GetMapping("/cheapest-brand")
@@ -35,7 +35,7 @@ public class ProductUiController {
 
         model.addAttribute("data", product);
 
-        return "cheapest-brand";
+        return "core/cheapest-brand";
     }
 
     @GetMapping("/categories/{category}/price-range")
@@ -47,7 +47,7 @@ public class ProductUiController {
         model.addAttribute("data", response);
         model.addAttribute("selectedCategory", category);
 
-        return "category-price-range";
+        return "core/category-price-range";
     }
 
     @ModelAttribute
