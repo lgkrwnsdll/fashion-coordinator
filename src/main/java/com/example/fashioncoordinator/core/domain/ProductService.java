@@ -1,11 +1,7 @@
 package com.example.fashioncoordinator.core.domain;
 
-import com.example.fashioncoordinator.core.api.response.HighestLowestPriceBrandResponseDto;
-import com.example.fashioncoordinator.core.api.response.HighestLowestPriceBrandResponseDto.ProductResponseDto;
-import com.example.fashioncoordinator.core.api.response.LowestPriceBrandProductResponseDto;
-import com.example.fashioncoordinator.core.api.response.LowestPriceCombinationResponseDto;
-import com.example.fashioncoordinator.db.ProductEntity;
 import com.example.fashioncoordinator.db.ProductCustomRepository;
+import com.example.fashioncoordinator.db.ProductEntity;
 import com.example.fashioncoordinator.db.ProductJpaRepository;
 import com.example.fashioncoordinator.enums.ProductCategory;
 import com.example.fashioncoordinator.exception.CustomException;
@@ -28,11 +24,11 @@ public class ProductService {
     private final ProductJpaRepository productJpaRepository;
     private final ProductCustomRepository productCustomRepository;
 
-    public LowestPriceCombinationResponseDto getLowestPriceCombination() {
+    public CategoryLowestPriceProduct getLowestPriceProductsForAllCategories() {
         List<ProductEntity> productEntityList = productJpaRepository.findAll();
 
         int totalPrice = 0;
-        List<LowestPriceCombinationResponseDto.ProductResponseDto> productList = new ArrayList<>();
+        List<Product> productList = new ArrayList<>();
         for (ProductCategory category : ProductCategory.values()) {
             Optional<Entry<String, Integer>> minEntry = productEntityList.stream()
                 .filter(p -> category.getPrice(p) != null)
@@ -49,7 +45,7 @@ public class ProductService {
 
             Entry<String, Integer> entry = minEntry.get();
             productList.add(
-                LowestPriceCombinationResponseDto.ProductResponseDto.builder()
+                Product.builder()
                     .category(category)
                     .brand(entry.getKey())
                     .price(entry.getValue())
@@ -59,28 +55,28 @@ public class ProductService {
             totalPrice += entry.getValue();
         }
 
-        return LowestPriceCombinationResponseDto.builder()
+        return CategoryLowestPriceProduct.builder()
             .productList(productList)
             .totalPrice(totalPrice)
             .build();
     }
 
-    public LowestPriceBrandProductResponseDto getLowestPriceBrandProducts() {
+    public LowestTotalPriceBrand getLowestPriceBrand() {
         ProductEntity productEntity = productJpaRepository.findLowestPriceBrand()
             .orElseThrow(() -> new CustomException(ProductErrorCode.DATA_MISSING));
 
-        return LowestPriceBrandProductResponseDto.from(productEntity);
+        return LowestTotalPriceBrand.from(productEntity);
     }
 
-    public HighestLowestPriceBrandResponseDto getHighestAndLowestPriceProducts(
+    public HighestLowestPriceProduct getHighestAndLowestPriceProducts(
         ProductCategory category) {
         try {
-            ProductResponseDto minPriceProduct = productCustomRepository.findMinPriceProductByCategory(
+            Product minPriceProduct = productCustomRepository.findMinPriceProductByCategory(
                 category);
-            ProductResponseDto maxPriceProduct = productCustomRepository.findMaxPriceProductByCategory(
+            Product maxPriceProduct = productCustomRepository.findMaxPriceProductByCategory(
                 category);
 
-            return HighestLowestPriceBrandResponseDto.builder()
+            return HighestLowestPriceProduct.builder()
                 .category(category)
                 .lowestPriceProductList(List.of(minPriceProduct))
                 .highestPriceProductList(List.of(maxPriceProduct))
