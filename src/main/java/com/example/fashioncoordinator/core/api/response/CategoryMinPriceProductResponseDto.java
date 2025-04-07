@@ -9,12 +9,10 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @Getter
 @Builder
-@EqualsAndHashCode
 public class CategoryMinPriceProductResponseDto {
 
     @Getter
