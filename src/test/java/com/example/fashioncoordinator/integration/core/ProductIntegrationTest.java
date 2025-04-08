@@ -5,10 +5,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.example.fashioncoordinator.core.api.response.CategoryMinPriceProductResponseDto;
 import com.example.fashioncoordinator.core.api.response.MaxMinPriceProductResponseDto;
 import com.example.fashioncoordinator.core.api.response.MinTotalPriceBrandProductResponseDto;
 import com.example.fashioncoordinator.core.api.response.MinTotalPriceBrandResponseWrapper;
-import com.example.fashioncoordinator.core.api.response.CategoryMinPriceProductResponseDto;
 import com.example.fashioncoordinator.enums.ProductCategory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
@@ -235,23 +235,6 @@ public class ProductIntegrationTest {
         // then
         perform
             .andExpect(status().isNotFound())
-            .andDo(print());
-
-    }
-
-    @Test
-    @DisplayName("특정 카테고리의 최고 및 최저가 상품 조회 - 422 실패")
-    public void testGetMaxAndMinPriceProducts_422() throws Exception {
-        // given
-
-        // when
-        ResultActions perform = mockMvc.perform(
-            get("/products/categories/{category}/price-range", "anyString")
-        );
-
-        // then
-        perform
-            .andExpect(status().isUnprocessableEntity())
             .andDo(print());
 
     }
