@@ -238,4 +238,21 @@ public class ProductIntegrationTest {
             .andDo(print());
 
     }
+
+    @Test
+    @DisplayName("특정 카테고리의 최고 및 최저가 상품 조회 - 422 실패")
+    public void testGetMaxAndMinPriceProducts_422() throws Exception {
+        // given
+
+        // when
+        ResultActions perform = mockMvc.perform(
+            get("/products/categories/{category}/price-range", "anyString")
+        );
+
+        // then
+        perform
+            .andExpect(status().isUnprocessableEntity())
+            .andDo(print());
+
+    }
 }
