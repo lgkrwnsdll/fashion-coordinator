@@ -40,6 +40,6 @@ public enum ProductCategory {
         return Arrays.stream(ProductCategory.values())
             .filter(category -> category.getKoreanName().equals(name))
             .findFirst()
-            .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 카테고리: " + name));
+            .orElseThrow();
     }
 }
