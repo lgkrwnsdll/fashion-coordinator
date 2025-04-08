@@ -17,32 +17,18 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @RestControllerAdvice(annotations = RestController.class)
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
-    private ResponseEntity<Object> handleExceptionInternal(ErrorCode errorCode) {
-        return ResponseEntity.status(errorCode.getHttpStatus())
-            .body(ErrorResponseDto.builder()
-                .code(errorCode.name())
-                .message(errorCode.getMessage())
-                .build()
-            );
-    }
-
-    private ResponseEntity<Object> handleExceptionInternal(ErrorCode errorCode, String message) {
-        return ResponseEntity.status(errorCode.getHttpStatus())
-            .body(ErrorResponseDto.builder()
-                .code(errorCode.name())
-                .message(message)
-                .build()
-            );
-    }
-
-    private ResponseEntity<Object> handleExceptionInternal(MethodArgumentNotValidException e,
-        ErrorCode errorCode) {
+    @Override
+    public ResponseEntity<Object> handleMethodArgumentNotValid(
+        MethodArgumentNotValidException e, HttpHeaders headers, HttpStatusCode status,
+        WebRequest request
+    ) {
         List<ErrorResponseDto.ValidationError> validationErrorList = e.getBindingResult()
             .getFieldErrors()
             .stream()
             .map(ErrorResponseDto.ValidationError::of)
             .collect(Collectors.toList());
 
+        ErrorCode errorCode = CommonErrorCode.UNPROCESSABLE_ENTITY;
         return ResponseEntity.status(errorCode.getHttpStatus())
             .body(ErrorResponseDto.builder()
                 .code(errorCode.name())
@@ -52,23 +38,15 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
             );
     }
 
-    @Override
-    public ResponseEntity<Object> handleMethodArgumentNotValid(
-        MethodArgumentNotValidException e, HttpHeaders headers, HttpStatusCode status,
-        WebRequest request
-    ) {
-        ErrorCode errorCode = CommonErrorCode.UNPROCESSABLE_ENTITY;
-        return handleExceptionInternal(e, errorCode);
-    }
-
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<Object> handleMethodArgumentTypeMismatchException(
         MethodArgumentTypeMismatchException e) {
-        ErrorCode errorCode = CommonErrorCode.UNPROCESSABLE_ENTITY;
         ValidationError validationError = ValidationError.builder()
             .field(e.getPropertyName())
             .message(e.getValue() + "일 수 없습니다.")
             .build();
+
+        ErrorCode errorCode = CommonErrorCode.UNPROCESSABLE_ENTITY;
         return ResponseEntity.status(errorCode.getHttpStatus())
             .body(ErrorResponseDto.builder()
                 .code(errorCode.name())
@@ -83,9 +61,9 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         ErrorCode errorCode = e.getErrorCode();
         String message = e.getMessage();
         if (message == null) {
-            return handleExceptionInternal(errorCode);
+            return createErrorResponse(errorCode, errorCode.getMessage());
         } else {
-            return handleExceptionInternal(errorCode, message);
+            return createErrorResponse(errorCode, message);
         }
     }
 
@@ -93,6 +71,15 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleAllException(Exception e) {
         // TODO 에러 내역 로깅
         ErrorCode errorCode = CommonErrorCode.INTERNAL_SERVER_ERROR;
-        return handleExceptionInternal(errorCode, errorCode.getMessage());
+        return createErrorResponse(errorCode, errorCode.getMessage());
+    }
+
+    private ResponseEntity<Object> createErrorResponse(ErrorCode errorCode, String message) {
+        return ResponseEntity.status(errorCode.getHttpStatus())
+            .body(ErrorResponseDto.builder()
+                .code(errorCode.name())
+                .message(message)
+                .build()
+            );
     }
 }
